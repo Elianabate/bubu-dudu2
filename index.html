@@ -8,6 +8,8 @@
 </head>
 <body>
   <div id="floatingHearts" aria-hidden="true"></div>
+  <div class="heart-runner heart-runner-top" aria-hidden="true"><span></span></div>
+  <div class="heart-runner heart-runner-bottom" aria-hidden="true"><span></span></div>
 
   <main id="app">
     <!-- INICIO -->
@@ -48,22 +50,22 @@
             <span class="letter-icon">🌷</span>
             <span>
               <strong>Cosas que me encantan de vos</strong>
-              <small>Se desbloquea después de la primera</small>
+              <small></small>
             </span>
-            <span class="lock-status">🔒</span>
+            <span class="lock-status">♡</span>
           </button>
 
           <button class="letter locked" data-letter="3">
             <span class="letter-icon">✨</span>
             <span>
               <strong>Un recuerdo hermoso de ti</strong>
-              <small>Se desbloquea después de la segunda</small>
+              <small></small>
             </span>
-            <span class="lock-status">🔒</span>
+            <span class="lock-status">♡</span>
           </button>
         </div>
 
-        <p class="hint" id="lettersHint">Primero abrí la primera carta 💌</p>
+        <p class="hint" id="lettersHint" aria-live="polite"></p>
         <button class="primary-btn continue-btn hidden" id="toQuestionsBtn">Continuar ✨</button>
       </div>
     </section>
@@ -107,32 +109,58 @@
       <div class="section-wrap">
         <p class="small">PARTE 3</p>
         <h2>Algunos momentos 📸</h2>
-        <p class="intro">Acá podés agregar las fotos que quieras de ustedes.</p>
+        <p class="intro">Unos momentos tuyos que quería guardar acá, porque todo se siente un poquito más especial cuando aparecés vos. ♡</p>
 
-        <!--
-          PARA AGREGAR FOTOS:
-          1. Creá una carpeta llamada "images".
-          2. Subí allí tus fotos.
-          3. Reemplazá cada bloque de ejemplo por:
-             <button class="photo-card">
-               <img src="images/nombre-de-tu-foto.jpg" alt="Descripción de la foto">
-             </button>
-        -->
-        <div class="photo-grid">
-          <div class="photo-placeholder">Tu foto 1 📸</div>
-          <div class="photo-placeholder">Tu foto 2 💗</div>
-          <div class="photo-placeholder">Tu foto 3 🌷</div>
-          <div class="photo-placeholder">Tu foto 4 ✨</div>
+        <div class="photo-grid photo-memory-grid">
+          <button class="photo-card memory-card tilt-left" type="button" data-caption="♡">
+            <span class="photo-deco deco-heart">♡</span>
+            <img src="images/bubu-1.jpg" alt="Foto especial de Bubu 1">
+            <span class="photo-caption">♡</span>
+          </button>
+
+          <button class="photo-card memory-card tilt-right" type="button" data-caption="♡">
+            <span class="photo-deco deco-bow">🎀</span>
+            <img src="images/bubu-2.jpg" alt="Foto especial de Bubu 2">
+            <span class="photo-caption">♡</span>
+          </button>
+
+          <button class="photo-card memory-card wide-card" type="button" data-caption="♡">
+            <span class="photo-deco deco-heart">♥</span>
+            <img src="images/bubu-3.jpg" alt="Foto especial de Bubu 3">
+            <span class="photo-caption">♡</span>
+          </button>
+
+          <button class="photo-card memory-card tilt-right" type="button" data-caption="♡">
+            <span class="photo-deco deco-flower">✿</span>
+            <img src="images/bubu-4.jpg" alt="Foto especial de Bubu 4">
+            <span class="photo-caption">♡</span>
+          </button>
+
+          <button class="photo-card memory-card tilt-left" type="button" data-caption="♡">
+            <span class="photo-deco deco-heart">♡</span>
+            <img src="images/bubu-5.jpg" alt="Foto especial de Bubu 5">
+            <span class="photo-caption">♡</span>
+          </button>
+
+          <button class="photo-card memory-card tilt-right" type="button" data-caption="♡">
+            <span class="photo-deco deco-bow">🎀</span>
+            <img src="images/bubu-6.jpg" alt="Foto especial de Bubu 6">
+            <span class="photo-caption">♡</span>
+          </button>
         </div>
 
         <div class="music-card">
-          <p class="small">UNA CANCIÓN ESPECIAL</p>
-          <h3>I Wanna Be Yours</h3>
-          <p>Arctic Monkeys</p>
-          <a class="music-btn" href="https://open.spotify.com/search/I%20Wanna%20Be%20Yours%20Arctic%20Monkeys" target="_blank" rel="noopener noreferrer">
-            Reproducir música ♫
-          </a>
+          <p class="small">UN POQUITO DE AMBIENTE</p>
+          <h3>Un ambiente suave para nosotros ♡</h3>
+          <p>Una melodía instrumental tranquila, pensada para acompañar la sorpresa sin distraer.</p>
+          <button class="music-btn" id="musicToggleBtn" type="button" aria-pressed="false">▶ Reproducir ambiente</button>
+          <p class="music-note">Podés pausarla cuando quieras ♡</p>
         </div>
+
+        <audio id="ambientMusic" loop preload="metadata">
+          <source src="ambient-dudu-bubu.wav" type="audio/wav">
+          Tu navegador no pudo reproducir el audio.
+        </audio>
 
         <button class="primary-btn" id="toFinalBtn">Continuar 💗</button>
       </div>
