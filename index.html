@@ -7,61 +7,176 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="floatingHearts" aria-hidden="true"></div>
+
   <main id="app">
+    <!-- INICIO -->
     <section class="screen active" id="welcome">
-      <div class="heart">♡</div>
-      <p class="small">Una pequeña sorpresa para</p>
-      <h1>Bubu</h1>
-      <p class="subtitle">De parte de Dudu ♡</p>
-      <button onclick="showScreen('letters')">Empezar ✨</button>
+      <div class="welcome-card">
+        <div class="heart">♡</div>
+        <p class="small">UNA PEQUEÑA SORPRESA PARA</p>
+        <h1>Bubu</h1>
+        <p class="subtitle">De parte de Dudu ♡</p>
+        <button class="primary-btn" id="startBtn">Empezar ✨</button>
+      </div>
     </section>
 
+    <!-- CARTAS -->
     <section class="screen" id="letters">
-      <p class="small">Parte 1</p>
-      <h2>Unas cartitas para vos 💌</h2>
-      <p class="intro">Hay algunas cosas que quería decirte, así que preparé esto especialmente para vos.</p>
+      <div class="section-wrap">
+        <p class="small">PARTE 1</p>
+        <h2>Unas cartitas para vos 💌</h2>
+        <p class="intro">Hay algunas cosas que quería decirte, así que preparé esto especialmente para vos.</p>
 
-      <div class="cards">
-        <button class="letter" onclick="openLetter(1)">💌 <span>Para Bubu</span></button>
-        <button class="letter" onclick="openLetter(2)">🌷 <span>Cosas que me encantan</span></button>
-        <button class="letter" onclick="openLetter(3)">✨ <span>Un recuerdo</span></button>
+        <div class="progress-dots" aria-label="Progreso de las cartas">
+          <span class="progress-dot" data-dot="1"></span>
+          <span class="progress-dot" data-dot="2"></span>
+          <span class="progress-dot" data-dot="3"></span>
+        </div>
+
+        <div class="cards">
+          <button class="letter unlocked" data-letter="1">
+            <span class="letter-icon">💌</span>
+            <span>
+              <strong>Para Bubu</strong>
+              <small>Abrir carta</small>
+            </span>
+            <span class="lock-status">♡</span>
+          </button>
+
+          <button class="letter locked" data-letter="2">
+            <span class="letter-icon">🌷</span>
+            <span>
+              <strong>Cosas que me encantan de vos</strong>
+              <small>Se desbloquea después de la primera</small>
+            </span>
+            <span class="lock-status">🔒</span>
+          </button>
+
+          <button class="letter locked" data-letter="3">
+            <span class="letter-icon">✨</span>
+            <span>
+              <strong>Un recuerdo hermoso de ti</strong>
+              <small>Se desbloquea después de la segunda</small>
+            </span>
+            <span class="lock-status">🔒</span>
+          </button>
+        </div>
+
+        <p class="hint" id="lettersHint">Primero abrí la primera carta 💌</p>
+        <button class="primary-btn continue-btn hidden" id="toQuestionsBtn">Continuar ✨</button>
       </div>
-
-      <button class="secondary" onclick="showScreen('game')">Seguir →</button>
     </section>
 
+    <!-- PREGUNTAS -->
     <section class="screen" id="game">
-      <p class="small">Parte 2</p>
-      <h2>¿Cuánto conocés a Dudu? 🎮</h2>
-      <p id="question"></p>
-      <div id="answers"></div>
-      <p class="result" id="result"></p>
-    </section>
-
-    <section class="screen" id="final">
-      <div class="heart big">♡</div>
-      <p class="small">Llegaste hasta el final...</p>
-      <h2>Bubu, tengo una última pregunta.</h2>
-      <p class="question-final">¿Querés ser mi novia? ❤️</p>
-      <div class="final-buttons">
-        <button onclick="yesAnswer()">Sí ❤️</button>
-        <button onclick="yesAnswer()">Obvio 🥺</button>
+      <div class="section-wrap">
+        <p class="small">PARTE 2</p>
+        <h2>¿Cuánto conocés a Dudu? ✨</h2>
+        <div class="question-counter" id="questionCounter"></div>
+        <div class="question-card">
+          <p id="question"></p>
+          <div id="answers"></div>
+          <p class="result" id="result" aria-live="polite"></p>
+        </div>
       </div>
     </section>
 
+    <!-- RESULTADO / MINIJUEGO -->
+    <section class="screen" id="quizResult">
+      <div class="section-wrap">
+        <div class="heart">♡</div>
+        <h2 id="quizTitle"></h2>
+        <p id="quizText" class="intro"></p>
+        <p class="score-text" id="scoreText"></p>
+
+        <div id="heartGame" class="heart-game hidden">
+          <p class="small">BONUS</p>
+          <h3>¡Atrapá los corazones! 💗</h3>
+          <p class="game-instructions">Tocá los corazones para recuperar los puntos que faltaron.</p>
+          <div class="game-board" id="gameBoard"></div>
+          <p class="game-score" id="gameScore">0 / 0</p>
+        </div>
+
+        <button class="primary-btn" id="toPhotosBtn">Ver fotos 📸</button>
+      </div>
+    </section>
+
+    <!-- FOTOS -->
+    <section class="screen" id="photos">
+      <div class="section-wrap">
+        <p class="small">PARTE 3</p>
+        <h2>Algunos momentos 📸</h2>
+        <p class="intro">Acá podés agregar las fotos que quieras de ustedes.</p>
+
+        <!--
+          PARA AGREGAR FOTOS:
+          1. Creá una carpeta llamada "images".
+          2. Subí allí tus fotos.
+          3. Reemplazá cada bloque de ejemplo por:
+             <button class="photo-card">
+               <img src="images/nombre-de-tu-foto.jpg" alt="Descripción de la foto">
+             </button>
+        -->
+        <div class="photo-grid">
+          <div class="photo-placeholder">Tu foto 1 📸</div>
+          <div class="photo-placeholder">Tu foto 2 💗</div>
+          <div class="photo-placeholder">Tu foto 3 🌷</div>
+          <div class="photo-placeholder">Tu foto 4 ✨</div>
+        </div>
+
+        <div class="music-card">
+          <p class="small">UNA CANCIÓN ESPECIAL</p>
+          <h3>I Wanna Be Yours</h3>
+          <p>Arctic Monkeys</p>
+          <a class="music-btn" href="https://open.spotify.com/search/I%20Wanna%20Be%20Yours%20Arctic%20Monkeys" target="_blank" rel="noopener noreferrer">
+            Reproducir música ♫
+          </a>
+        </div>
+
+        <button class="primary-btn" id="toFinalBtn">Continuar 💗</button>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <section class="screen" id="final">
+      <div class="section-wrap">
+        <div class="heart big">♡</div>
+        <p class="small">LLEGASTE HASTA EL FINAL...</p>
+        <h2>Bubu, tengo una última pregunta.</h2>
+        <p class="question-final">¿Querés ser mi novia? ❤️</p>
+        <div class="final-buttons">
+          <button class="primary-btn" id="yesBtn">Sí ❤️</button>
+          <button class="primary-btn" id="obvioBtn">Obvio 🥺</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESPUESTA FINAL -->
     <section class="screen" id="yes">
-      <div class="hearts">♡ ♥ ♡ ♥ ♡</div>
-      <h1>Sabía que ibas a decir que sí 🥺❤️</h1>
-      <p>Te quiero muchísimo, Bubu.</p>
-      <p class="signature">— Dudu ♡</p>
+      <div class="section-wrap">
+        <div class="hearts">♡ ♥ ♡ ♥ ♡</div>
+        <h1>Sabía que ibas a decir que sí 🥺❤️</h1>
+        <p>Te quiero muchísimo, Bubu.</p>
+        <p class="signature">— Dudu ♡</p>
+      </div>
     </section>
   </main>
 
-  <div class="modal" id="letterModal" onclick="closeLetter(event)">
-    <article class="letter-paper">
-      <button class="close" onclick="closeLetter()">×</button>
+  <!-- MODAL DE CARTAS -->
+  <div class="modal" id="letterModal" aria-hidden="true">
+    <article class="letter-paper" role="dialog" aria-modal="true" aria-labelledby="letterTitle">
+      <button class="close" id="closeLetterBtn" aria-label="Cerrar carta">×</button>
+      <div class="letter-seal">♡</div>
       <div id="letterContent"></div>
+      <button class="primary-btn close-letter-bottom" id="readLetterBtn">Cerrar carta ♡</button>
     </article>
+  </div>
+
+  <!-- VISOR DE FOTOS -->
+  <div class="photo-modal" id="photoModal">
+    <button id="closePhotoBtn" aria-label="Cerrar foto">×</button>
+    <img id="modalImage" alt="">
   </div>
 
   <script src="script.js"></script>
