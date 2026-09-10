@@ -165,7 +165,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
 
 document.getElementById("toQuestionsBtn").addEventListener("click", () => {
   if (progress.lettersOpened.length < 3) {
-    showToast("Primero tenés que abrir las tres cartas 💌");
+    showToast("Todavía hay algo esperándote en las cartitas 💌");
     return;
   }
 
@@ -207,7 +207,7 @@ function canOpenLetter(number) {
 
 function openLetter(number) {
   if (!canOpenLetter(number)) {
-    showToast(`Primero abrí la carta ${number - 1} 💌`);
+    showToast("Todavía hay una cartita esperando su momento 💌");
     return;
   }
 
@@ -261,8 +261,8 @@ function updateLettersUI() {
       status.textContent = "♡";
       small.textContent = "Abrir carta";
     } else {
-      status.textContent = "🔒";
-      small.textContent = `Se desbloquea después de la carta ${number - 1}`;
+      status.textContent = "♡";
+      small.textContent = "";
     }
   });
 
@@ -274,12 +274,15 @@ function updateLettersUI() {
   const hint = document.getElementById("lettersHint");
   const continueButton = document.getElementById("toQuestionsBtn");
 
-  if (opened < 3) {
-    hint.textContent = `Abrí las cartas en orden (${opened}/3)`;
-    continueButton.classList.add("hidden");
-  } else {
-    hint.textContent = "Ya descubriste todas las cartas 💗";
+  // El progreso queda marcado visualmente solo como "Leída" en cada carta.
+  // No mostramos instrucciones que revelen que hay que completar todas.
+  hint.textContent = "";
+  hint.classList.add("hidden");
+
+  if (opened >= 3) {
     continueButton.classList.remove("hidden");
+  } else {
+    continueButton.classList.add("hidden");
   }
 }
 
@@ -491,6 +494,41 @@ document.getElementById("photoModal").addEventListener("click", event => {
     event.currentTarget.classList.remove("show");
   }
 });
+
+
+// ================================
+// MÚSICA DE AMBIENTE
+// ================================
+
+const ambientMusic = document.getElementById("ambientMusic");
+const musicToggleBtn = document.getElementById("musicToggleBtn");
+
+if (ambientMusic && musicToggleBtn) {
+  ambientMusic.volume = 0.22;
+
+  musicToggleBtn.addEventListener("click", async () => {
+    try {
+      if (ambientMusic.paused) {
+        await ambientMusic.play();
+        musicToggleBtn.textContent = "❚❚ Pausar ambiente";
+        musicToggleBtn.setAttribute("aria-pressed", "true");
+      } else {
+        ambientMusic.pause();
+        musicToggleBtn.textContent = "▶ Reproducir ambiente";
+        musicToggleBtn.setAttribute("aria-pressed", "false");
+      }
+    } catch (error) {
+      showToast("Tocá nuevamente para reproducir la música ♡");
+    }
+  });
+
+  ambientMusic.addEventListener("pause", () => {
+    if (!ambientMusic.ended) {
+      musicToggleBtn.textContent = "▶ Reproducir ambiente";
+      musicToggleBtn.setAttribute("aria-pressed", "false");
+    }
+  });
+}
 
 
 // ================================
