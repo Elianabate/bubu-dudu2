@@ -497,41 +497,6 @@ document.getElementById("photoModal").addEventListener("click", event => {
 
 
 // ================================
-// MÚSICA DE AMBIENTE
-// ================================
-
-const ambientMusic = document.getElementById("ambientMusic");
-const musicToggleBtn = document.getElementById("musicToggleBtn");
-
-if (ambientMusic && musicToggleBtn) {
-  ambientMusic.volume = 0.22;
-
-  musicToggleBtn.addEventListener("click", async () => {
-    try {
-      if (ambientMusic.paused) {
-        await ambientMusic.play();
-        musicToggleBtn.textContent = "❚❚ Pausar ambiente";
-        musicToggleBtn.setAttribute("aria-pressed", "true");
-      } else {
-        ambientMusic.pause();
-        musicToggleBtn.textContent = "▶ Reproducir ambiente";
-        musicToggleBtn.setAttribute("aria-pressed", "false");
-      }
-    } catch (error) {
-      showToast("Tocá nuevamente para reproducir la música ♡");
-    }
-  });
-
-  ambientMusic.addEventListener("pause", () => {
-    if (!ambientMusic.ended) {
-      musicToggleBtn.textContent = "▶ Reproducir ambiente";
-      musicToggleBtn.setAttribute("aria-pressed", "false");
-    }
-  });
-}
-
-
-// ================================
 // FINAL
 // ================================
 
